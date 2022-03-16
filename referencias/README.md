@@ -1,5 +1,8 @@
-# Referencias
+# &Referencias
 
+<div align = center>
+<image src = https://user-images.githubusercontent.com/61971951/158562275-3af6da0c-6f00-4c3c-b4c0-7da32dd3dc32.gif alt="Tendi a referencia" >
+</div>
 ## 1. Especificação
 As especificações do projeto estão no arquivo 'Especificação Ray-Tracing 2021-2.pdf'
 
