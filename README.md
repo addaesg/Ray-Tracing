@@ -22,14 +22,14 @@ Foi implementado em _C++ utilizando Modern OpenGL, GLFW, GLEW, outras biblioteca
 A estrutura do repositório, segue: _(n vai ser essa estrutura, mas é só para dar uma ideia de como representar)_
 ```
 main
-  |____ Testes
-  |        |____ Primeira Entrega
-  |        |____ Segunda Entrega
-  |        |____ Terceira entrega
-  |____ Referencias
-  |____ Camera
-  |____ Shaders
-  |____ bla bla bla
+  |___ Testes
+  |        |__ Primeira Entrega
+  |        |__ Segunda Entrega
+  |        |__ Terceira entrega
+  |___ Referencias
+  |___ Camera
+  |___ Shaders
+  |___ bla bla bla
   
 ```
 
