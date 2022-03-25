@@ -7,7 +7,7 @@
 
 namespace shapes
 {
-    // Classe Solid: Classe pai para Esfera e Plano
+    // Classe Solid: Classe pai para Esfera e Plano :D
     class Solid
     {
     public:
@@ -15,7 +15,7 @@ namespace shapes
         atom::Rgb color;
         Solid();
         ~Solid();
-        
+
     }; 
 
     // Classe Sphere(Equation, color): Basta ler o nome

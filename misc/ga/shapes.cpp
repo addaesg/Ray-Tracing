@@ -6,7 +6,6 @@ using namespace shapes;
 
 /* 
     SOLID
-    
 */
 Solid::Solid() = default;
 Solid::~Solid(){};
@@ -14,6 +13,7 @@ Solid::~Solid(){};
 
 /* 
     Sphere
+    
 */
 Sphere::Radius::Radius() = default;
 Sphere::Radius::Radius(double radius): r(radius){};
