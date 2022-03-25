@@ -15,6 +15,7 @@ namespace shapes
         atom::Rgb color;
         Solid();
         ~Solid();
+        
     }; 
 
     // Classe Sphere(Equation, color): Basta ler o nome
