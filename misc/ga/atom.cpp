@@ -4,13 +4,13 @@ using namespace atom;
 
 /* 
     Point
-    
 */
 Point::Point() = default;
 Point::Point( double x, double y, double z): x(x), y(y), z(z){};
 
 /* 
     Vector Origin
+    
 */
 
 VectorOrigin::VectorOrigin() = default;

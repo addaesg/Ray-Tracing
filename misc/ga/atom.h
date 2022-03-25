@@ -3,7 +3,7 @@
 
 #include <cstdint>
 /* 
-    Estruturas de dados que serão utilizadas em varias classes.    
+  Estruturas de dados que serão utilizadas em varias classes.    
 */
 namespace atom
 {
