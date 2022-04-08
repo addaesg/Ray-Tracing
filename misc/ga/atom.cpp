@@ -3,30 +3,30 @@
 using namespace atom;
 
 /* 
-    Point
+    point3
 */
-Point::Point() = default;
-Point::Point( double x, double y, double z): x(x), y(y), z(z){};
+point3::point3() = default;
+point3::point3( double x, double y, double z): x(x), y(y), z(z){};
 
 /* 
     Vector Origin
-    
+
 */
 
-VectorOrigin::VectorOrigin() = default;
-VectorOrigin::VectorOrigin( double x, double y, double z): x(x), y(y), z(z){};
+vector3::vector3() = default;
+vector3::vector3( double x, double y, double z): x(x), y(y), z(z){};
 
 
 /*
     Line Origin
 */
-LineOrigin::LineOrigin() = default;
-LineOrigin::LineOrigin(atom::VectorOrigin v): v(v){};
+line::line() = default;
+line::line(atom::point3 point, atom::vector3 vector): p(point), v(vector){};
 
 
 
 /* 
-    RGB
+    rgb
 */
-Rgb::Rgb() = default;
-Rgb::Rgb( uint8_t red, uint8_t green, uint8_t blue): r(red), g(green), b(blue){};
+rgb::rgb() = default;
+rgb::rgb( uint8_t red, uint8_t green, uint8_t blue): r(red), g(green), b(blue){};
