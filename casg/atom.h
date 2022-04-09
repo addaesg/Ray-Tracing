@@ -48,7 +48,6 @@ namespace atom
         line(atom::point3 point, atom::vector3 vector);
     };
 
-
 } // namespace atom
 
 #endif
