@@ -12,9 +12,7 @@ atom::vector3 vec3::mult(const atom::vector3 a,const double k)
 }
 
 atom::vector3 vec3::cross(const atom::vector3 a, const atom::vector3 b)
-{
-    // determinante da matriz
-    // refatorar isso       
+{     
     return vec3::sum(
                     vec3::sum(
                             vec3::mult({1.0,0.0,0.0}, (a.y*b.z - a.z*b.y)),

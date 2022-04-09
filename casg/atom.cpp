@@ -12,7 +12,6 @@ point3::point3( double x, double y, double z): x(x), y(y), z(z){};
     Vector Origin
 
 */
-
 vector3::vector3() = default;
 vector3::vector3( double x, double y, double z): x(x), y(y), z(z){};
 
