@@ -37,3 +37,18 @@ atom::rgb Scene::getIntersectionColor(atom::line ray)
 Screen::Screen() = default;
 Screen::Screen(double height, double width, double pixelSize): vRes(height), hRes(width), pixelRes(pixelSize){};
 
+Camera::Camera() = default;
+Camera::Camera(
+    atom::point3 originGlobal, 
+    atom::point3 targetGlobal,
+    atom::vector3 up,
+    spc::Screen screen,
+    double distToScreen
+)
+{
+    this->originGlobal = originGlobal;
+    this->targetGlobal = targetGlobal;
+    this->distToScreen = distToScreen;
+    this->up = up;
+    this->screen = screen;
+};

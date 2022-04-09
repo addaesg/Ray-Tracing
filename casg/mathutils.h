@@ -14,7 +14,7 @@ namespace vec3
 
     atom::vector3 normalized(const atom::vector3 a);
 
-    atom::vector3 normalizeThis(atom::vector3 a);
+    void normalizeThis(atom::vector3& a);
 
     double dot(const atom::vector3 a, const atom::vector3 b);
    
