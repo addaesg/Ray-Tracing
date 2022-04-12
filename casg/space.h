@@ -81,7 +81,7 @@ namespace spc
        Camera
 
         Boa sorte
-        Aqui é terra de ninguém.
+        Aqui é terra de casg
      */    
     class Camera
     {
