@@ -6,7 +6,7 @@ using namespace spc;
 double inf = std::numeric_limits<double>::infinity();
 
 Scene::Scene() = default;
-Scene::Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor):s(spheres), p(planes), bc(backgroundColor){};
+Scene::Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor): s(spheres), p(planes), bc(backgroundColor) {};
 
 atom::rgb Scene::getIntersectionColor(atom::line ray)
 {
@@ -39,7 +39,9 @@ atom::rgb Scene::getIntersectionColor(atom::line ray)
 };
 
 Screen::Screen() = default;
-Screen::Screen(int height, int width, double pixelSize): vRes(height), hRes(width), pixelRes(pixelSize){};
+Screen::Screen(int height, int width, double pixelSize)
+    : vRes(height), hRes(width), pixelRes(pixelSize) {
+};
 
 Camera::Camera() = default;
 Camera::Camera(
@@ -47,9 +49,7 @@ Camera::Camera(
     atom::point3 targetGlobal,
     atom::vector3 up,
     spc::Screen screen,
-    double distToScreen,
-    atom::vector3 orthoNormalBaseGlobal,
-    std::vector<std::vector<double>> baseChangeMatrix
+    double distToScreen
 )
 {
     this->originGlobal = originGlobal;
@@ -57,6 +57,8 @@ Camera::Camera(
     this->distToScreen = distToScreen;
     this->up = up;
     this->screen = screen;
-    this->orthoNormalBaseGlobal = orthoNormalBaseGlobal;
-    this->baseChangeMatrix = baseChangeMatrix;
+
+    //calcular esse carinhas aqui:
+    /* this->uvw = uvw; */
+    /* this->baseChangeMatrix = baseChangeMatrix; */
 };

@@ -1,0 +1,52 @@
+class Camera {
+
+    Vector3 u
+    Vector3 v
+    Vector3 w
+    Vector3[3, 3] baseChangeMatrix
+
+    constructor Camera(Point3 E, Point3 L, float d, Vector3 up, Screen screen)
+    {
+        w = Vector3.fromPoints(L, E)  // E - L normalizado
+        u = Vector3.crossProduct(up, w).normalized()
+        v = Vector3.cossProduct(w, u).normalized()
+
+        baseChangeMatrix[0][0] = u[0]
+        baseChangeMatrix[1][0] = u[1]
+        baseChangeMatrix[2][0] = u[2]
+
+        baseChangeMatrix[0][1] = v[0]
+        baseChangeMatrix[1][1] = v[1]
+        baseChangeMatrix[2][1] = v[2]
+
+        baseChangeMatrix[0][2] = w[0]
+        baseChangeMatrix[1][2] = w[1]
+        baseChangeMatrix[2][2] = w[2]
+    }
+
+    Point3 getPixelCenterCoordinate(int i, int j) {
+        // (direita, cima, trás)
+        // (x, y, z)
+        // (u, v, w)
+        
+        // no código, X é a constante Point3.X = {1, 0, 0}, Y é {0, 1, 0}, Z é {0, 0, 1}
+        // S é a dim do pixel.
+        
+        // precisamos achar o centro da tela. (a reta que sai da camera até a mira é normal ao plano da tela...)
+        // mas não necessáriamente o ponto de intersecção é o ponto do centro do pixel.
+        // usamos os vetores u, v para simular mover no eixo x, y de um plano. já que são "paralelos" a tela
+        // w é a normal do plano
+        // const screenCenterPoint = (Point3) -d*w
+        // define S screen.S
+        // define S screen.vRes
+        // define S screen.hRes
+        upperLeftPixelCenter = screenCenterPoint + ((vRes-S)/2)*Y - ((hRes-S)/2)*X
+        return upperLeftPoint - i*S*Y + j*S*X
+    }
+
+    Point3 | Vector3 toCameraCoordinates(Point3 | Vector3 v) {
+        v -= E
+        v = v.transposed()
+        return baseChangeMatrix @ v
+    }
+}

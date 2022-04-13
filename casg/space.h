@@ -73,6 +73,7 @@ namespace spc
     {
         int vRes, hRes;
         double pixelRes;
+        std::vector<std::vector<atom::rgb>> color;
         Screen();
         Screen(int height, int width, double pixelSize);
     };
@@ -80,8 +81,8 @@ namespace spc
     /* 
        Camera
 
-        Boa sorte
-        Aqui é terra de casg
+        Boa sorte   
+        bora
      */    
     class Camera
     {
@@ -90,7 +91,9 @@ namespace spc
         atom::vector3 up;
         spc::Screen screen;
         double distToScreen;
-        atom::vector3 orthoNormalBaseGlobal;
+        atom::vector3 u;
+        atom::vector3 v;
+        atom::vector3 w;
         std::vector<std::vector<double>> baseChangeMatrix;
 
         Camera();
@@ -99,9 +102,7 @@ namespace spc
             atom::point3 targetGlobal,
             atom::vector3 up,
             spc::Screen screen,
-            double distToScreen,
-            atom::vector3 orthoNormalBaseGlobal,
-            std::vector<std::vector<double>> baseChangeMatrix
+            double distToScreen
         );
         ~Camera();
     };
