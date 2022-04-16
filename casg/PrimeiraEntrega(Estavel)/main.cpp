@@ -40,7 +40,7 @@ void run()
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);  
     
-    std::cin >> h_res >> v_res;
+    std::cin >> v_res >> h_res;
     std::cout << "V res é " << h_res << "H res é " << v_res << "\n";
     
     std::cout << "Camera: \n"; 
