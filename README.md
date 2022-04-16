@@ -40,9 +40,16 @@ Também podemos usar branches diferentes para cada entrega..._
 
     
 ## 4. Sobre a fazer a build
-_blablabla_
-  
-    
+**Se você está usando o compilador g++, rode no _Diretório do main.cpp_:**
+```
+   g++ atom.cpp mathutils.cpp shapes.cpp space.cpp media.cpp main.cpp
+```
+**A fim de executar:**
+```
+   ./a.out < PathDoArquivoDeInput.txt
+```
+_O arquivo .ppm é gerado como "Output.ppm" no diretório do main.cpp_
+     
 ### 4.1 Instalar dependencias
 _blablabla_
 
