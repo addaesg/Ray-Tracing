@@ -1,9 +1,10 @@
 #include "space.h"
 #include <limits>
+#include "mathutils.h"
 
 using namespace spc;
 
-double inf = std::numeric_limits<double>::infinity();
+double infito = std::numeric_limits<double>::infinity();
 
 Scene::Scene() = default;
 Scene::Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor):s(spheres), p(planes), bc(backgroundColor){};
@@ -14,7 +15,7 @@ atom::rgb Scene::getIntersectionColor(atom::line ray)
     // mó cansado
     double epsilon = 0.00001;
     atom::rgb curColor = this->bc;
-    double mindist = inf, curdist;
+    double mindist = infito, curdist;
     for(auto sphere: this->s)
     {
 
@@ -47,9 +48,7 @@ Camera::Camera(
     atom::point3 targetGlobal,
     atom::vector3 up,
     spc::Screen screen,
-    double distToScreen,
-    atom::vector3 orthoNormalBaseGlobal,
-    std::vector<std::vector<double>> baseChangeMatrix
+    double distToScreen
 )
 {
     this->originGlobal = originGlobal;
@@ -57,6 +56,43 @@ Camera::Camera(
     this->distToScreen = distToScreen;
     this->up = up;
     this->screen = screen;
-    this->orthoNormalBaseGlobal = orthoNormalBaseGlobal;
-    this->baseChangeMatrix = baseChangeMatrix;
+    
+    this->calculateUVW();
+    this->genScreenVector();
+/*     this->orthoNormalBaseGlobal = orthoNormalBaseGlobal;
+    this->baseChangeMatrix = baseChangeMatrix; */
 };
+
+void Camera::calculateUVW()
+{
+    this->w = vec3::normalized(vec3::fromPoints(targetGlobal, originGlobal));
+    this->u = vec3::normalized(vec3::cross(this->up, this->w));
+    this->v = vec3::cross(this->w, this->u);
+};
+
+atom::point3 Camera::screenGlobalPoint(double i, double j)
+{
+    double x, y;
+    x = this->screen.pixelRes*(j - this->screen.hRes/2 + 0.5);
+    y = - this->screen.pixelRes*(i - this->screen.vRes/2 + 0.5);
+
+    atom::vector3 nu, nv, nw;
+
+    nu = vec3::mult(this->u, x);
+    nv = vec3::mult(this->v, y);
+    nw = vec3::mult(this->w, -this->distToScreen);
+
+    return p3::sum(p3::sum(p3::sum(this->originGlobal, nu), nv), nw);
+};
+
+void Camera::genScreenVector()
+{
+    std::vector<atom::point3> row = {};
+    for(int i = 0; i < this->screen.vRes; i++)
+    {
+        row.clear();
+        for(int j = 0; j < this->screen.hRes; j++)
+            row.push_back(this->screenGlobalPoint(i, j));
+        this->scr.push_back(row);
+    }
+}

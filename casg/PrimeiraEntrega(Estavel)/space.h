@@ -1,8 +1,8 @@
 #ifndef SPACE
 #define SPACE
 #include "atom.h"
-#include <vector>
 #include "shapes.h"
+#include <vector>
 
 /* 
     spc
@@ -81,17 +81,20 @@ namespace spc
        Camera
 
         Boa sorte
-        Aqui é terra de casg
+        soninho
      */    
     class Camera
     {
     public:
+
         atom::point3 originGlobal, targetGlobal;
         atom::vector3 up;
         spc::Screen screen;
         double distToScreen;
-        atom::vector3 orthoNormalBaseGlobal;
+        atom::vector3 u, v, w;
         std::vector<std::vector<double>> baseChangeMatrix;
+        
+        std::vector<std::vector<atom::point3>> scr;
 
         Camera();
         Camera(
@@ -99,11 +102,13 @@ namespace spc
             atom::point3 targetGlobal,
             atom::vector3 up,
             spc::Screen screen,
-            double distToScreen,
-            atom::vector3 orthoNormalBaseGlobal,
-            std::vector<std::vector<double>> baseChangeMatrix
+            double distToScreen
         );
-        ~Camera();
+        ~Camera(){};
+        void calculateUVW();
+        atom::point3 screenGlobalPoint(double i, double j);
+        void genScreenVector();
+        
     };
     
 } // namespace spc

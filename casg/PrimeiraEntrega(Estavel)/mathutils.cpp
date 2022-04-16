@@ -1,5 +1,6 @@
 #include "mathutils.h"
 #include <math.h>
+#include <cstdint>
 
 atom::vector3 vec3::sum(const atom::vector3 a, const atom::vector3 b)
 {
@@ -13,13 +14,7 @@ atom::vector3 vec3::mult(const atom::vector3 a,const double k)
 
 atom::vector3 vec3::cross(const atom::vector3 a, const atom::vector3 b)
 {     
-    return vec3::sum(
-                    vec3::sum(
-                            vec3::mult({1.0,0.0,0.0}, (a.y*b.z - a.z*b.y)),
-                            vec3::mult({0.0,-1.0,0.0}, (a.x*b.z - a.z*b.x))
-                            ), 
-                        vec3::mult({0.0,0.0,1.0}, (a.x*b.y - a.y*b.x))
-                    );
+    return {a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x};
 }    
 
 atom::vector3 vec3::fromPoints(const atom::point3 from, const atom::point3 to)
@@ -29,7 +24,8 @@ atom::vector3 vec3::fromPoints(const atom::point3 from, const atom::point3 to)
 
 atom::vector3 vec3::normalized(const atom::vector3 a)
 {
-    return vec3::mult(a, 1/(std::sqrt(a.x*a.x + a.y*a.y + a.z*a.z)));
+    double pw2 = a.x*a.x + a.y*a.y + a.z*a.z;
+    return vec3::mult(a, 1/std::sqrt(pw2));
 };
 
 void vec3::normalizeThis(atom::vector3& a)
@@ -51,4 +47,9 @@ double vec3::lenPow2(const atom::vector3 a)
 atom::line line3::fromPoints(const atom::point3 from, const atom::point3 to)
 {
     return {from,  vec3::normalized(vec3::fromPoints(from, to))};
+};
+
+atom::point3 p3::sum(atom::point3 p, atom::vector3 v)
+{
+    return {p.x + v.x, p.y + v.y, p.z + v.z};   
 }

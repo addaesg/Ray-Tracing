@@ -68,7 +68,7 @@ namespace shapes
          */
         double intersectsLine(const atom::line l);
 
-        ~Sphere();
+        ~Sphere(){};
     };
     
     /* 
@@ -127,7 +127,7 @@ namespace shapes
          */
         double intersectsLine(const atom::line l);
 
-        ~Plane();
+        ~Plane(){};
     };
 };
 
