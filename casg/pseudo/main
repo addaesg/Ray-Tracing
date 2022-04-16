@@ -1,0 +1,56 @@
+void RayCast(Camera camera, Scene scene) {
+    // define screen camera.screen
+    foreach(int i in screen.vRes) {
+        foreach(int j in screen.hRes) {
+            Point3 pixelCenterCoordinate = camera.getPixelCenterCoordinate(i, j)
+            ray = getRayTo(pixelCenterCoordinate)
+            color = scene.getColorOfClosestIntersectingObject(ray)
+            screen[i][j] = color
+        }
+    }
+    toPPM(screen)
+}
+
+void main() {
+    v_res, h_res = input()
+    s, d = input()
+    Ex, Ey, Ez = input()
+    E = new Point3(Ex, Ey, Ez)
+    Lx, Ly, Lz = input()
+    L = new Point3(Lx, Ly, Lz)
+    UPx, UPy, UPz = input()
+    UP = new Vector3(UPx, UPy, UPz)
+    Br, Bg, Bb = input()
+    B = new RGB(Br, Bg, Bb)
+
+    screen = new Screen(v_res, h_res, s)
+    camera = new Camera(E, L, d, UP, screen)
+    scene = new Scene(B)
+
+    k = input()
+
+    for _ in range(k) {
+        Cr, Cg, Cb = input(3)
+        rgb = new RGB(Cr, Cg, Cb)
+        mark = input()
+        if(mark == '*') {
+            Ox, Oy, Oz = input(3)
+            center = new Point3(Ox, Oy, Oz)
+            centerCamera = camera.toCameraCoordinates(center)
+            r = input()
+            scene.spheres.push(new Sphere(center, centerCamera, r, rgb))
+        } else {
+            Px, Py, Pz = input(3)
+            aPoint = new Point3(Px, Py, Pz)
+            aPointCamera = camera.toCameraCoordinates(aPoint)
+
+            Nx, Ny, Nz = input(3)
+            normal = (new Vector3(Nx, Ny, Nz)).normalized()
+            normalCamera = camera.toCameraCoordinates(normal)
+
+            scene.planes.push(aPoint, normal, aPointCamera, normalCamera)
+        }
+    }
+
+    RayCast(camera, scene)
+}
