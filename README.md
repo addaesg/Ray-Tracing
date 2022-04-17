@@ -73,8 +73,9 @@ _O arquivo .ppm é gerado como "Output.ppm" no diretório do main.cpp_
      
                                                      
 ### 4.1 Instalar dependencias
-                                     
-**Install g++ compiler.** 
+                                  
+                                  
+#### 4.1.1 Install g++ Compiler
                                   
  _For linux user, **run**:_
                                   
