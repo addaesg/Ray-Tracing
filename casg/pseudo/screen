@@ -1,3 +1,0 @@
-class Screen {
-    constructor Screen(int vRes, int hRes, int S) { }
-}
