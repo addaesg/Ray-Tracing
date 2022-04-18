@@ -40,7 +40,7 @@ class Camera {
         // define S screen.S
         // define S screen.vRes
         // define S screen.hRes
-        upperLeftPixelCenter = screenCenterPoint + ((vRes-S)/2)*Y - ((hRes-S)/2)*X
+        upperLeftPixelCenter = screenCenterPoint + ((vRes-S)/2)*Y - ((hRes+S)/2)*X
         return upperLeftPoint - i*S*Y + j*S*X
     }
 
