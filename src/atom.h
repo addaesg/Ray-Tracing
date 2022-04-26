@@ -17,9 +17,8 @@ namespace atom
     // point3 = {x, y, z}
     // padrão = {0,0,0}
     struct point3 {
-        double x = 0.0, y = 0.0, z = 0.0;
-        point3();
-        point3(double x, double y, double z);
+        double x, y, z;
+        point3(double x=.0, double y=.0, double z=.0);
     };
 
     // Vetor da origem até o ponto {x, y, z}
@@ -31,9 +30,8 @@ namespace atom
     // 
     // Provavelmente você quer normalizar esse vetor: Use vec3::normalizeThis() ou vec3::normalized();
     struct vector3 {
-        double x = 0.0, y = 0.0, z = 0.0;
-        vector3();
-        vector3(double x, double y, double z);
+        double x, y, z;
+        vector3(double x=.0, double y=.0, double z=.0);
     };
     
     // RGB
@@ -45,13 +43,12 @@ namespace atom
     // cada r||b||g tem tamanho de 1 byte(int)
     struct rgb {
         // Red 
-        int r = 0;
+        int r;
         // Green
-        int g = 0; 
+        int g; 
         // blue
-        int b = 0;
-        rgb();
-        rgb(int red, int green, int blue);
+        int b;
+        rgb(int red=0, int green=0, int blue=0);
    };
     
     // RETA
@@ -67,7 +64,6 @@ namespace atom
         // Vetor diretor da reta.
         // Normalize essa merda
         atom::vector3 v;
-        line();
         line(atom::point3 point, atom::vector3 vector);
     };
 

@@ -5,21 +5,18 @@ using namespace atom;
 /* 
     point3
 */
-point3::point3() = default;
-point3::point3( double x, double y, double z): x(x), y(y), z(z){};
+point3::point3(double x, double y, double z): x(x), y(y), z(z){};
 
 /* 
     Vector Origin
 
 */
-vector3::vector3() = default;
-vector3::vector3( double x, double y, double z): x(x), y(y), z(z){};
+vector3::vector3(double x, double y, double z): x(x), y(y), z(z){};
 
 
 /*
     Line Origin
 */
-line::line() = default;
 line::line(atom::point3 point, atom::vector3 vector): p(point), v(vector){};
 
 
@@ -27,5 +24,4 @@ line::line(atom::point3 point, atom::vector3 vector): p(point), v(vector){};
 /* 
     rgb
 */
-rgb::rgb() = default;
-rgb::rgb( int red, int green, int blue): r(red), g(green), b(blue){};
+rgb::rgb(int red, int green, int blue): r(red), g(green), b(blue){};
