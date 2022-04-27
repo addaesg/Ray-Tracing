@@ -5,12 +5,8 @@
 </div>
 
 
-_Escrito em itálico são apenas ideias/comentários._
- 
-_(Alguma hora eu passo isso para inglês, são 4 da manhã...)_
-
 Este é o repositório para o projeto de Ray Tracing da cadeira de Programação Gráfica do Centro de Informática da UFPE. 
-Foi implementado em _C++ utilizando Modern OpenGL, GLFW, GLEW, outras bibliotecas...._
+Foi implementado _from scracth_ usando C++.
 
     
 
@@ -20,32 +16,67 @@ Foi implementado em _C++ utilizando Modern OpenGL, GLFW, GLEW, outras biblioteca
 
     
 ## 2. Estrutura
-A estrutura do repositório, segue: _(n vai ser essa estrutura, mas é só para dar uma ideia de como representar)_
-```
-main
+A estrutura do repositório, segue:
+    
+```   
+    
+MAIN
+  |___ Implementation_uml
+  |        |__ *.drawio
+  |
   |___ Testes
   |        |__ Primeira Entrega
+  |        |           |_ Input
+  |        |           |    |_ *.txt
+  |        |           |_ Ouput
+  |        |                |_ *.png
+  |        |                |_ *.ppm
   |        |__ Segunda Entrega
   |        |__ Terceira entrega
+  |
   |___ Referencias
-  |___ Camera
-  |___ Shaders
-  |___ bla bla bla
-  
+  |        |__ EspecificaçãoProjeto.pdf
+  |        |__ *.pdf
+  |
+  |___ Primeira_Entrega_Stable
+           |__ *.h
+           |__ *.cpp
+           |__ executável
+           |__ output.ppm
+
 ```
 
+    
+    
+    
 ## 3. Sobre as versões
-_Acho que controle de versão(tag) pode ser útil para agnt saber qual a versão estável de cada entrega.
-Também podemos usar branches diferentes para cada entrega..._
-
+Cada entrega tem um subdiretório na branch Main.
+    
+**Não atualize a pasta referente a uma entrega depois da deadline**
+    
+    
+    
     
 ## 4. Sobre a fazer a build
-_blablabla_
-  
+_**Obs.:** Os comandos abaixo se referem à primeira entrega._ 
     
+**Se você está usando o compilador g++, rode no diretório ```X_Entrega_Stable```:**
+    
+```
+g++ atom.cpp mathutils.cpp shapes.cpp space.cpp media.cpp main.cpp
+```
+**A fim de executar:**
+```
+./a.out < PathDoArquivoDeInput.txt
+```
+_O arquivo .ppm é gerado como "Output.ppm" no diretório do main.cpp_
+     
+                                                     
 ### 4.1 Instalar dependencias
-_blablabla_
-
-    
-## 5. _Tópico_
-_abcabcabc_
+                                     
+**Install g++ compiler**
+                                 
+_**For linux user:**_
+```sudo apt install build-essential```
+_or_
+```sudo apt install g++```                                     

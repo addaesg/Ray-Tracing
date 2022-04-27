@@ -110,4 +110,6 @@ namespace p3
 {
     atom::point3 sum(atom::point3 p, atom::vector3 v);
 }
+
+
 #endif 

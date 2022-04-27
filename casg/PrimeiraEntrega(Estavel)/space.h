@@ -1,8 +1,8 @@
 #ifndef SPACE
 #define SPACE
 #include "atom.h"
-#include <vector>
 #include "shapes.h"
+#include <vector>
 
 /* 
     spc
@@ -98,7 +98,11 @@ namespace spc
         atom::vector3 u, v, w;
         std::vector<std::vector<double>> baseChangeMatrix;
         
+<<<<<<< HEAD:casg/space.h
         std::vector<std::vector<spc::Pixel>> scr;
+=======
+        std::vector<std::vector<atom::point3>> scr;
+>>>>>>> c664e0b6f550c3c438960c22f81e69df027e049c:casg/PrimeiraEntrega(Estavel)/space.h
 
         Camera();
         Camera(
@@ -108,10 +112,18 @@ namespace spc
             spc::Screen screen,
             double distToScreen
         );
+<<<<<<< HEAD:casg/space.h
         ~Camera();
         void calculateUVW();
         atom::point3 screenGlobalPoint(int i, int j);
         void genScreenVector();
+=======
+        ~Camera(){};
+        void calculateUVW();
+        atom::point3 screenGlobalPoint(double i, double j);
+        void genScreenVector();
+        
+>>>>>>> c664e0b6f550c3c438960c22f81e69df027e049c:casg/PrimeiraEntrega(Estavel)/space.h
     };
     
 } // namespace spc

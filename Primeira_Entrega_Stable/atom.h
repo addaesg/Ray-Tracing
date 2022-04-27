@@ -42,16 +42,16 @@ namespace atom
     // padrão = Cor Preta
     //
     // cada cor é composta por 3 valores Inteiros entre 0 e 255
-    // cada r||b||g tem tamanho de 1 byte(uint8_t)
+    // cada r||b||g tem tamanho de 1 byte(int)
     struct rgb {
         // Red 
-        uint8_t r = 0;
+        int r = 0;
         // Green
-        uint8_t g = 0; 
+        int g = 0; 
         // blue
-        uint8_t b = 0;
+        int b = 0;
         rgb();
-        rgb(uint8_t red, uint8_t green, uint8_t blue);
+        rgb(int red, int green, int blue);
    };
     
     // RETA

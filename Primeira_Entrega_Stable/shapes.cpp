@@ -20,8 +20,6 @@ Sphere::Sphere(Sphere::equation e, atom::rgb color): formula(e), color(color){};
 double Sphere::intersectsLine(const atom::line l)
 {
     // baseado no artigo: https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection
-
-
     double epsilon = 0.00001;
 
     atom::vector3 vpc = vec3::fromPoints(this->formula.c, l.p);

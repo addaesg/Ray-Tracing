@@ -4,7 +4,7 @@
 
 using namespace spc;
 
-double inf = std::numeric_limits<double>::infinity();
+double infito = std::numeric_limits<double>::infinity();
 
 Scene::Scene() = default;
 Scene::Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor):s(spheres), p(planes), bc(backgroundColor){};
@@ -15,7 +15,7 @@ atom::rgb Scene::getIntersectionColor(atom::line ray)
     // mó cansado
     double epsilon = 0.00001;
     atom::rgb curColor = this->bc;
-    double mindist = inf, curdist;
+    double mindist = infito, curdist;
     for(auto sphere: this->s)
     {
 
@@ -70,9 +70,9 @@ void Camera::calculateUVW()
     this->v = vec3::cross(this->w, this->u);
 };
 
-atom::point3 Camera::screenGlobalPoint(int i, int j)
+atom::point3 Camera::screenGlobalPoint(double i, double j)
 {
-    float x, y;
+    double x, y;
     x = this->screen.pixelRes*(j - this->screen.hRes/2 + 0.5);
     y = - this->screen.pixelRes*(i - this->screen.vRes/2 + 0.5);
 
@@ -87,13 +87,12 @@ atom::point3 Camera::screenGlobalPoint(int i, int j)
 
 void Camera::genScreenVector()
 {
+    std::vector<atom::point3> row = {};
     for(int i = 0; i < this->screen.vRes; i++)
     {
-        std::vector<Pixel> row = {};
+        row.clear();
         for(int j = 0; j < this->screen.hRes; j++)
-        {
-            row.push_back({this->screenGlobalPoint(i, j), {0,0,0}});
-        };
+            row.push_back(this->screenGlobalPoint(i, j));
         this->scr.push_back(row);
     }
 }

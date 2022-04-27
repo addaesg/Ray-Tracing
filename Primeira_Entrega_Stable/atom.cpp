@@ -28,4 +28,4 @@ line::line(atom::point3 point, atom::vector3 vector): p(point), v(vector){};
     rgb
 */
 rgb::rgb() = default;
-rgb::rgb( uint8_t red, uint8_t green, uint8_t blue): r(red), g(green), b(blue){};
+rgb::rgb( int red, int green, int blue): r(red), g(green), b(blue){};
