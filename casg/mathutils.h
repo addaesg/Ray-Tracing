@@ -45,6 +45,8 @@ namespace vec3
 
         Vetor determinado por 2 pontos.
         Retorna vector3;
+         
+        Para normalizar use vec3::normalized() ou vec3::normalizeThis()
     */
     atom::vector3 fromPoints(const atom::point3 from, const atom::point3 to);
 
@@ -103,4 +105,9 @@ namespace line3{
     atom::line fromPoints(const atom::point3 from, const atom::point3 to);
 }
 
+
+namespace p3
+{
+    atom::point3 sum(atom::point3 p, atom::vector3 v);
+}
 #endif 

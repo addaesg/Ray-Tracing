@@ -51,4 +51,9 @@ double vec3::lenPow2(const atom::vector3 a)
 atom::line line3::fromPoints(const atom::point3 from, const atom::point3 to)
 {
     return {from,  vec3::normalized(vec3::fromPoints(from, to))};
+};
+
+atom::point3 p3::sum(atom::point3 p, atom::vector3 v)
+{
+    return {p.x + v.x, p.y + v.y, p.z + v.z};   
 }

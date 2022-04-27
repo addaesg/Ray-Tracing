@@ -21,6 +21,10 @@ namespace spc
     // Um array de planos
     typedef std::vector<shapes::Plane> Planes;
 
+
+    // def de pixel
+    typedef std::pair<atom::point3, atom::rgb> Pixel;
+
     /* 
         Scene
 
@@ -81,17 +85,20 @@ namespace spc
        Camera
 
         Boa sorte
-        Aqui é terra de casg
+        soninho
      */    
     class Camera
     {
     public:
+
         atom::point3 originGlobal, targetGlobal;
         atom::vector3 up;
         spc::Screen screen;
         double distToScreen;
-        atom::vector3 orthoNormalBaseGlobal;
+        atom::vector3 u, v, w;
         std::vector<std::vector<double>> baseChangeMatrix;
+        
+        std::vector<std::vector<spc::Pixel>> scr;
 
         Camera();
         Camera(
@@ -99,11 +106,12 @@ namespace spc
             atom::point3 targetGlobal,
             atom::vector3 up,
             spc::Screen screen,
-            double distToScreen,
-            atom::vector3 orthoNormalBaseGlobal,
-            std::vector<std::vector<double>> baseChangeMatrix
+            double distToScreen
         );
         ~Camera();
+        void calculateUVW();
+        atom::point3 screenGlobalPoint(int i, int j);
+        void genScreenVector();
     };
     
 } // namespace spc
