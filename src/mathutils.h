@@ -22,7 +22,7 @@ namespace vec3
         Soma de dois vetores.
         Retorna um Vetor3;
     */
-    atom::vector3 sum(const atom::vector3 a, const atom::vector3 b);
+    atom::vector3 sum(const atom::vector3& a, const atom::vector3& b);
 
     /* 
         vec3::mult()
@@ -30,7 +30,7 @@ namespace vec3
         Multiplicação de um vetor por uma constante
         retorna um vetor3;
     */
-    atom::vector3 mult(const atom::vector3 a,const double k);
+    atom::vector3 mult(const atom::vector3& a,const double k);
 
     /* 
         vec3::cross()
@@ -38,7 +38,7 @@ namespace vec3
         Cross product de dois vetores.
         Retorna vector3;
     */
-    atom::vector3 cross(const atom::vector3 a, const atom::vector3 b);
+    atom::vector3 cross(const atom::vector3& a, const atom::vector3& b);
     
     /* 
         vec3::fromPoints()
@@ -48,7 +48,7 @@ namespace vec3
          
         Para normalizar use vec3::normalized() ou vec3::normalizeThis()
     */
-    atom::vector3 fromPoints(const atom::point3 from, const atom::point3 to);
+    atom::vector3 fromPoints(const atom::point3& from, const atom::point3& to);
 
     /* 
         vec3::normalized()
@@ -56,7 +56,7 @@ namespace vec3
         Versão normalizada de um vetor.
         Retorna um vector3;
     */
-    atom::vector3 normalized(const atom::vector3 a);
+    atom::vector3 normalized(const atom::vector3& a);
 
     /* 
         vec3::normalizeThis()
@@ -75,7 +75,7 @@ namespace vec3
         Valor do dorProduct entre dois vetores.
         Retorna um double;
     */
-    double dot(const atom::vector3 a, const atom::vector3 b);
+    double dot(const atom::vector3& a, const atom::vector3& b);
 
     /* 
         vec3::lenPow2()
@@ -83,7 +83,7 @@ namespace vec3
         magnitude^2 de um vetor.
         retorna um double;
     */   
-    double lenPow2(const atom::vector3 a);
+    double lenPow2(const atom::vector3& a);
 }
 
 /* 
@@ -102,13 +102,13 @@ namespace line3{
 
         Retorna line;
     */  
-    atom::line fromPoints(const atom::point3 from, const atom::point3 to);
+    atom::line fromPoints(const atom::point3& from, const atom::point3& to);
 }
 
 
 namespace p3
 {
-    atom::point3 sum(atom::point3 p, atom::vector3 v);
+    atom::point3 sum(const atom::point3& p,const atom::vector3& v);
 }
 
 

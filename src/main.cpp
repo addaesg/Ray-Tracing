@@ -10,18 +10,49 @@
 #include <ratio>
 #include <random>
 #include <iomanip>
+#include <thread>
+#include <functional> // std::ref
+
+int const NUMTHREADS = 12;
+
+void partialCast(const spc::Camera& c, const spc::Scene& s, ppm::img& image, int initial_line, int final_line)
+{
+    for(int i = initial_line; i <= final_line; i++)
+        for(int j = 0; j < c.screen.hRes; j++)
+            image[i][j] = s.getIntersectionColor(line3::fromPoints(c.originGlobal, c.scr[i][j]));
+};
+
+void cast(const spc::Camera& c, const spc::Scene& s, ppm::img& image, int num_threads)
+{
+    std::vector<std::thread> arr;
+    int lines_per_thread = c.screen.vRes/num_threads;
+    for(int x = 0; x < num_threads; x++)
+    {
+        arr.push_back(std::thread(
+            partialCast,
+            std::ref(c),
+            std::ref(s),
+            std::ref(image),
+            x*lines_per_thread,
+            (x+1)*lines_per_thread-1));
+    }
+    
+    for(int x = 0; x < num_threads; x++)
+    {
+        arr[x].join();
+    }
+}
 
 
-void rayCast(spc::Camera c, spc::Scene s)
+void rayCast(const spc::Camera& c, const spc::Scene& s)
 {
     // calc raycast time
     auto start = std::chrono::high_resolution_clock::now();
     std::ios_base::sync_with_stdio(false);
-    
+
     ppm::img image(c.screen.vRes, std::vector<atom::rgb>(c.screen.hRes, {0,0,0}));
-    for(int i = 0; i < c.screen.vRes; i++)
-        for(int j = 0; j < c.screen.hRes; j++)
-            image[i][j] = s.getIntersectionColor(line3::fromPoints(c.originGlobal, c.scr[i][j]));     
+
+    cast(c, s, image, NUMTHREADS);
     
     auto end = std::chrono::high_resolution_clock::now();
     auto avg = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() * 1e-6;

@@ -47,7 +47,7 @@ namespace shapes
         Sphere::equation formula;
         // nome auto-explicativo...
         atom::rgb color;
-
+        
         Sphere();
         Sphere(Sphere::equation e, atom::rgb color);
         
@@ -66,7 +66,7 @@ namespace shapes
 
             Retorn%type = double
          */
-        double intersectsLine(const atom::line l);
+        double intersectsLine(const atom::line& l) const;
 
         ~Sphere(){};
     };
@@ -125,7 +125,7 @@ namespace shapes
 
             Retorn%type = double
          */
-        double intersectsLine(const atom::line l);
+        double intersectsLine(const atom::line& l) const;
 
         ~Plane(){};
     };

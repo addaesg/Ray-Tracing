@@ -9,7 +9,7 @@ double infito = std::numeric_limits<double>::infinity();
 Scene::Scene() = default;
 Scene::Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor):s(spheres), p(planes), bc(backgroundColor){};
 
-atom::rgb Scene::getIntersectionColor(atom::line ray)
+atom::rgb Scene::getIntersectionColor(const atom::line& ray) const
 {
     // vo comentar isso n
     // mó cansado
@@ -70,7 +70,7 @@ void Camera::calculateUVW()
     this->v = vec3::cross(this->w, this->u);
 };
 
-atom::point3 Camera::screenGlobalPoint(double i, double j)
+atom::point3 Camera::screenGlobalPoint(double i, double j) const
 {
     double x, y;
     x = this->screen.pixelRes*(j - this->screen.hRes/2 + 0.5);

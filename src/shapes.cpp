@@ -17,7 +17,7 @@ Sphere::Sphere() = default;
 Sphere::Sphere(Sphere::equation e, atom::rgb color): formula(e), color(color){};
 
 
-double Sphere::intersectsLine(const atom::line l)
+double Sphere::intersectsLine(const atom::line& l) const
 {
     // baseado no artigo: https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection
     double epsilon = 0.00001;
@@ -65,7 +65,7 @@ Plane::equation::equation(atom::point3 p, atom::vector3 n): p(p),n(n){};
 Plane::Plane() = default;
 Plane::Plane(Plane::equation e, atom::rgb color): formula(e), color(color){};
 
-double Plane::intersectsLine(const atom::line l)
+double Plane::intersectsLine(const atom::line& l) const
 {
     // baseado no artigo: https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
     double epsilon = 0.00001;

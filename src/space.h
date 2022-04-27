@@ -55,7 +55,7 @@ namespace spc
              
             returns%type = rgb;
          */
-        atom::rgb getIntersectionColor(atom::line ray); 
+        atom::rgb getIntersectionColor(const atom::line& ray) const; 
     };
 
 
@@ -106,7 +106,7 @@ namespace spc
         );
         ~Camera(){};
         void calculateUVW();
-        atom::point3 screenGlobalPoint(double i, double j);
+        atom::point3 screenGlobalPoint(double i, double j) const;
         void genScreenVector();
         
     };

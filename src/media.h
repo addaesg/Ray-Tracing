@@ -8,7 +8,10 @@
 namespace ppm
 {
     typedef  std::vector<std::vector<atom::rgb>> img;
-    void save2ppm(std::string path, img screen, std::pair<int, int> res);
+    void save2ppm(
+        const std::string& path,
+        const img& screen,
+        const std::pair<int, int>& res);
 };
 
 #endif 

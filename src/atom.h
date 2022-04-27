@@ -21,6 +21,8 @@ namespace atom
         point3(double x=.0, double y=.0, double z=.0);
     };
 
+    const point3 ORIGIN;
+
     // Vetor da origem até o ponto {x, y, z}
     // Padrão |vetor| = 0
     //

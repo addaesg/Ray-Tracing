@@ -4,7 +4,10 @@
 #include "space.h"
 
 
-void ppm::save2ppm(std::string path, ppm::img screen, std::pair<int, int> res)
+void ppm::save2ppm(
+    const std::string& path,
+    const ppm::img& screen,
+    const std::pair<int, int>& res)
 {
     int w = res.first, h = res.second;
     std::ofstream file(path, std::ios_base::binary);
