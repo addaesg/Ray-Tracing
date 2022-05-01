@@ -38,7 +38,7 @@ MAIN
   |        |__ EspecificaçãoProjeto.pdf
   |        |__ *.pdf
   |
-  |___ Primeira_Entrega_Stable
+  |___ *_Entrega_Stable
            |__ *.h
            |__ *.cpp
            |__ executável
