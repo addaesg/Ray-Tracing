@@ -17,9 +17,6 @@ namespace shapes
         Kd = Coeficiente de reflexão difusa
         Ks = coeficiente especular
         n  = expoente de phong
-
-        Fiz dessa forma para podermos facilmente modificar o código
-        Seria mais fácil fazer por polymorfismo...
     */
     struct phongConst
     {

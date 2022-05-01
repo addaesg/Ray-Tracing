@@ -13,19 +13,32 @@
 #include <thread>
 #include <functional> // std::ref
 
-int const NUMTHREADS = 12;
+int const NUMTHREADS = 4;
 
-void partialCast(spc::Camera c, spc::Scene s, ppm::img& image, int initial_line, int final_line)
+void partialCast(spc::Camera c, spc::Scene s, ppm::img& image, int initial_line, int final_line, int id)
 {
+    // calc raycast time
+    auto start = std::chrono::high_resolution_clock::now();
+    std::ios_base::sync_with_stdio(false);
+
     for(int i = initial_line; i <= final_line; i++)
         for(int j = 0; j < c.screen.hRes; j++)
             image[i][j] = s.getIntersectionColor(line3::fromPoints(c.originGlobal, c.scr[i][j]));
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto avg = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() * 1e-6;
+    std::cout << "\nThread " << id << '\n';
+    std::cout << "  Run Time:     " << avg << std::setprecision(6) << " ms\n";
+
 };
 
 void cast(const spc::Camera& c, const spc::Scene& s, ppm::img& image, int num_threads)
 {
     std::vector<std::thread> arr;
     int lines_per_thread = c.screen.vRes/num_threads;
+    // calc raycast time
+    auto start = std::chrono::high_resolution_clock::now();
+    std::ios_base::sync_with_stdio(false);
     for(int x = 0; x < num_threads; x++)
     {
         arr.push_back(std::thread(
@@ -34,29 +47,28 @@ void cast(const spc::Camera& c, const spc::Scene& s, ppm::img& image, int num_th
             s,
             std::ref(image),
             x*lines_per_thread,
-            (x+1)*lines_per_thread-1));
+            (x+1)*lines_per_thread-1,
+            x));
     }
-    
+
     for(int x = 0; x < num_threads; x++)
     {
         arr[x].join();
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto avg = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() * 1e-6;
+    std::cout << "\nTotal Run Time: " << avg << std::setprecision(9) << " milisec\n";
+    
+
 }
 
 void rayPhong(const spc::Camera& c, const spc::Scene& s)
 {
-    // calc raycast time
-    auto start = std::chrono::high_resolution_clock::now();
     std::ios_base::sync_with_stdio(false);
 
     ppm::img image(c.screen.vRes, std::vector<atom::rgb>(c.screen.hRes, {0,0,0}));
 
     cast(c, s, image, NUMTHREADS);
-    
-    auto end = std::chrono::high_resolution_clock::now();
-    auto avg = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() * 1e-6;
-    std::cout << "Run Time:     " << avg << std::setprecision(9) << " ms\n";
-    
     ppm::save2ppm("output.ppm", image, {c.screen.hRes, c.screen.vRes});
 };
 
@@ -135,16 +147,19 @@ void run()
     // Recebe luz
     atom::rgb al;
     std::cin >> al.r >> al.g >> al.b;
+    std::cout << "A cor do ambiente é " << al.r << " " << al.g << " " << al.b << "\n\n";
 
-    int kl = 0;
+    int kl;
     std::cin >> kl;
-
+    std::cout << "São " << kl << " luzes pontuais\n";
     for(int x = 0; x < kl; x++)
     {
         atom::point3 lppos;
         atom::rgb lpcol;
         std::cin >> lpcol.r >> lpcol.g >> lpcol.b >> lppos.x >> lppos.y >> lppos.z;
         lps.push_back({lppos, lpcol});
+        std::cout << "A cor da luz é " << lpcol.r << " " << lpcol.g << " " << lpcol.b << "\n";
+        std::cout << "A pos da luz é " << lppos.x << " " << lppos.y << " " << lppos.z << "\n\n";
     }
 
     spc::Scene sc(ss, ps, bcc, al, lps);

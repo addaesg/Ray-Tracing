@@ -65,6 +65,13 @@ namespace spc
         Scene();
         Scene(spc::Spheres spheres, spc::Planes planes, atom::rgb backgroundColor, atom::rgb ac, spc::LightPoints lp);
 
+
+        /* 
+            scene::doesIntersect()
+
+            Dado um raio e seu ponto de potencial destino, 
+            confere se este raio intersecta com algum objeto da cena nesse intervalo
+        */
         bool doesInstersect(atom::line ray, atom::point3 final);
 
         /* 

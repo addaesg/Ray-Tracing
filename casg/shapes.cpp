@@ -92,8 +92,6 @@ Plane::Plane(Plane::equation e, atom::rgb color,  shapes::phongConst k): formula
 
 phongWrapper Plane::getPhongThings(atom::point3 p)
 {
-    // possível erro aqui 
-    // Passando a normal do plano ao invez da normal do ponto :/
     return {this->k, p, this->formula.n ,this->fcolor};
 }
 

@@ -55,12 +55,12 @@ shapes::phongWrapper Scene::getPhongThingsFIO(atom::line ray)
             index=x;
         }
     }
+    
     if(mindist == infito)
-    {
         return {{-1, -1, -1, -1}, {0,0,0}, {0,0,0}, {0,0,0}};
-    }
-    // pode ter um erro aqui
-    return ((isSphere)? this->s[index].getPhongThings(p3::inLine(ray, mindist)) : this->p[index].getPhongThings(p3::inLine(ray, mindist)));
+    
+    return ((isSphere)? this->s[index].getPhongThings(p3::inLine(ray, mindist)) : 
+                        this->p[index].getPhongThings(p3::inLine(ray, mindist)));
 }
 
 bool Scene::doesInstersect(atom::line ray, atom::point3 final)
@@ -142,9 +142,7 @@ atom::rgb Scene::getIntersectionColor(atom::line ray)
     auto phongThings = getPhongThingsFIO(ray);
     
     if(phongThings.k.a == -1)
-    {
         return this->bc;
-    }
 
     return phongRM(phongThings, ray);
 
