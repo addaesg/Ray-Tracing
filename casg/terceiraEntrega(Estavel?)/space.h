@@ -103,7 +103,7 @@ namespace spc
             Provavelmente ce ta procurando por isso
          */
     
-        atom::vector3 phongRM(shapes::phongWrapper phongThings, atom::line ray, int hp);
+        atom::vector3 phongRTXon(shapes::phongWrapper phongThings, atom::line ray, int hp);
     };
 
 

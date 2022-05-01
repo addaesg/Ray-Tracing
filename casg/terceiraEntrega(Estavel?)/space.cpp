@@ -87,41 +87,43 @@ bool Scene::doesInstersect(atom::line ray, atom::point3 final)
     return false;
 }
 
-atom::vector3 Scene::phongRM(shapes::phongWrapper pw, atom::line ray, int hp)
+atom::vector3 Scene::phongRTXon(shapes::phongWrapper pw, atom::line ray, int hp)
 {
+    // Só uma variavel de controle de erro
+    double epsilon = 0.001;
 
-    // cometendo um crime
+
+    /* 
+        Phong reflation model 
+    */
     
-
     // vetor que vai do ponto do ponto de itersecção a camera
-    // basta inverter o vertor diretor da reta
-    // pode ter um erro aqui
-
     atom::vector3 wo = (vec3::mult(ray.v,-1));
     vec3::normalizeThis(wo);
-    double epsilon = 0.001;
+    
     // ambient color
     atom::vector3 c1 = vec3::multCrime(vec3::mult(pw.dc, pw.k.a), this->fal);
-    //vec3::normalizeThis(c1);
-    
+    // instanciando cor difusa e cor especular;
     atom::vector3 c2 = {0,0,0}, c3 = {0,0,0};
 
-
-
-    // algumas variaveis importantes
+    // poupando tempo
     atom::vector3 kdc = vec3::mult(pw.dc,pw.k.d);
-
+    // iterando sobre as luzes da cena
     for(int j=0; j<this->lps.size(); j++)
-    {
+    {   
+        // ignora essa luz se ela faz sombra
+        // ou seja, existe um objeto entre ela e o ponto de intersecção
         if(doesInstersect(line3::fromPoints(pw.p, this->lps[j].pos), this->lps[j].pos))
             continue;
-        
-        // difusa
+    
+        // se não faz sombra, então:
+    
+        // Calcula a cor difusa
         auto lj = vec3::normalized(vec3::fromPoints(pw.p,this->lps[j].pos));
         auto nlj = vec3::dot(pw.n, lj);
         c2 = vec3::sum(vec3::multCrime(kdc, vec3::mult(this->lps[j].fcolor, std::max(0.0, nlj))), c2);
         
-        // especular
+        // Calcula cor especular
         if(nlj >= -0.5)
         {
             vec3::normalizeThis(lj);
@@ -136,12 +138,20 @@ atom::vector3 Scene::phongRM(shapes::phongWrapper pw, atom::line ray, int hp)
     c3 = vec3::mult(c3, pw.k.s);
     atom::vector3 cor = (vec3::sum(c1, vec3::sum(c2,c3)));//vec3::sum(c1, vec3::sum(c2,c3));
 
+    /* 
+        Game over, você tem 0 de vida
+        ou seja, chegou no limite setado para quantidade recurções 
+        então retorna só a cor do modelo de phong do objeto atingido.
+    */
     if(hp == 0)
         return cor;
 
-    // Parte recursiva 
+    /* 
+        PARTE RECURSIVA DO RAYTRACING
+    */
     double ktt = pw.k.rt.t, ktr = pw.k.rt.r;
-    // reflexão
+
+    // Calculando o raio de reflexão
     atom::vector3 rvec = vec3::sum(ray.v, vec3::mult(pw.n, -2.0*vec3::dot(ray.v, pw.n)));
     atom::line rray = {p3::sum(pw.p, vec3::mult(pw.n, epsilon)), rvec};
     
@@ -151,12 +161,10 @@ atom::vector3 Scene::phongRM(shapes::phongWrapper pw, atom::line ray, int hp)
     if(rphongThings.k.a == -1)
         rcolor = this->fbc;
     else
-        rcolor = phongRM(rphongThings, rray, hp - 1);
-    
-    
+        rcolor = phongRTXon(rphongThings, rray, hp - 1);
 
-
-    // refração   
+    
+    // Calculando o raio de refração   
     
     // CALCULA T 
     atom::vector3 tcolor = {0,0,0};
@@ -164,25 +172,32 @@ atom::vector3 Scene::phongRM(shapes::phongWrapper pw, atom::line ray, int hp)
     atom::vector3 tvec;
     double delta, n;
     atom::vector3 pwn;
-    // entrando
+    
+    // Existem duas posibilidade, ou o vetor de refração está incindindo ou saindo o objeto;
+    
     n = pw.k.rt.n;
     pwn = pw.n;
+    // Se ele estiver sentido dentro->fora
     if(coteta < -epsilon)
     {
         n = 1/pw.k.rt.n; 
         pwn = vec3::mult(pw.n, -1.0); 
         coteta = vec3::dot(wo, pwn);
     }
+    // Senão, ele está incindindo 
     else if(coteta <= epsilon)
         coteta = 0;
     
-
+    
     delta = 1 - ((1 - std::pow(coteta, 2))/std::pow(n, 2));
+    // Se delta < 0, não existe raio refratado
+    // ou seja, reflexão total
     if(delta < -epsilon)
     {
         ktr = 1.0;
         ktt = 0.0;
     }
+    // Senão, então existe refração. Calcule ela
     else 
     {
         if(delta < epsilon)
@@ -198,17 +213,14 @@ atom::vector3 Scene::phongRM(shapes::phongWrapper pw, atom::line ray, int hp)
         if(tphongThings.k.a == -1)
             tcolor = this->fbc;
         else
-            tcolor = phongRM(tphongThings, tray, hp - 1);
+            tcolor = phongRTXon(tphongThings, tray, hp - 1);
     }
-
-
-    //tcolor = vec3::normalCrime(tcolor);
-    //rcolor = vec3::normalCrime(rcolor);
-
+    
+    // multiplica cada cor(reflexão/refração) pela respectiva constante(refração/reflexão) do objeto
     rcolor = vec3::mult(rcolor, ktr);
     tcolor = vec3::mult(tcolor, ktt);    
 
-
+    // soma com a cor do modelo de phong e retorna. 
     auto rtcolor = vec3::sum(rcolor, tcolor);
     cor = vec3::sum(rtcolor, cor);
     
@@ -222,7 +234,7 @@ atom::rgb Scene::getIntersectionColor(atom::line ray, int hp)
     if(phongThings.k.a == -1)
         return this->bc;
 
-    atom::vector3 cor = vec3::normalCrime(phongRM(phongThings, ray, hp));
+    atom::vector3 cor = vec3::normalCrime(phongRTXon(phongThings, ray, hp));
     return {(int)(cor.x*255)%255, (int)(cor.y*255)%255, (int)(cor.z*255)%255};
 };
 
