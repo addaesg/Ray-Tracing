@@ -63,7 +63,7 @@ _**Obs.:** Os comandos abaixo se referem à primeira entrega._
 **Se você está usando o compilador g++, rode no diretório ```X_Entrega_Stable```:**
     
 ```
-g++ atom.cpp mathutils.cpp shapes.cpp space.cpp media.cpp main.cpp
+g++ atom.cpp mathutils.cpp shapes.cpp space.cpp media.cpp main.cpp -lpthread
 ```
 **A fim de executar:**
 ```
